@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -46,8 +47,10 @@ class PostController extends Controller
             'excerpt'   => 'nullable|string|max:200',
         ]);
 
-        $data = $request->all();
-        dump($data);
+        $data = $request->all() +[
+            'user_id'   => Auth::id(),
+        ];
+        // dump($data);
 
         // salvataggio
         $post = Post::create($data);
