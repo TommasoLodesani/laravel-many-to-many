@@ -8,6 +8,13 @@
                 <th>Id</th>
                 <th>Slug</th>
                 <th>Title</th>
+                <th>Author</th>
+                <th>Birth</th>
+                <th>Category</th>
+                <th>Tagsa</th>
+
+
+
                 <th colspan="3">Actions</th>
             </tr>
         </thead>
@@ -17,6 +24,20 @@
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->slug }}</td>
                     <td>{{ $post->title }}</td>
+                    <td>{{ $post->user->name}}</td>
+                    <td>{{ $post->user->userDetails->birth}}</td>
+                    <td>
+                        <a href="{{ route('admin.categories.show', ['category' => $post->category]) }}">
+                        {{ $post->category->name }}
+                        </a>
+                    </td>
+                    <td>
+                        @foreach($post->tags as $tag)
+                            <a href="{{ route('admin.tags.show', ['tag' => $tag]) }}">{{ $tag->name }}</a>
+                            @if(!$loop->last) , @endif
+                        @endforeach
+                    </td>
+
                     <td>
                         <a href="{{ route('admin.posts.show', ['post' => $post]) }}" class="btn btn-primary">View</a>
                     </td>
